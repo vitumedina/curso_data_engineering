@@ -1,0 +1,117 @@
+version: 2
+
+sources:
+
+  - name: PROYECTO_NBA # name of the source 
+    schema: PROYECTO_NBA # this is the schema our raw data lives in
+    database: ALUMNO31_DEV_BRONZE_DB # this is the name of our database
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    freshness:
+      warn_after: {count: 24, period: hour}
+      error_after: {count: 48, period: hour}
+
+
+    tables:
+
+      - name: games
+        columns:
+          - name: GAME_DATE_EST
+          - name: GAME_ID
+          - name: GAME_STATUS_TEXT
+          - name: HOME_TEAM_ID
+          - name: VISITOR_TEAM_ID
+          - name: SEASON
+          - name: TEAM_ID_HOME
+          - name: PTS_HOME
+          - name: FG_PCT_HOME
+          - name: FT_PCT_HOME
+          - name: FG3_PCT_HOME
+          - name: AST_HOME
+          - name: REB_HOME
+          - name: TEAM_ID_AWAY
+          - name: PTS_AWAY
+          - name: FG_PCT_AWAY
+          - name: FT_PCT_AWAY
+          - name: FG3_PCT_AWAY
+          - name: AST_AWAY
+          - name: REB_AWAY
+          - name: HOME_TEAM_WINS 
+          
+
+      - name: game_details
+        columns:
+          - name: GAME_ID
+          - name: TEAM_ID
+          - name: TEAM_ABBREVIATION
+          - name: TEAM_CITY
+          - name: PLAYER_ID
+          - name: PLAYER_NAME
+          - name: NICKNAME
+          - name: START_POSITION
+          - name: COMMENT
+          - name: MINUTES
+          - name: FGM
+          - name: FGA
+          - name: FG_PCT
+          - name: FG3M
+          - name: FG3A
+          - name: FG3_PCT
+          - name: FTM
+          - name: FTA
+          - name: FT_PCT
+          - name: OREB
+          - name: DREB
+          - name: REB
+          - name: AST
+          - name: STL
+          - name: BLK
+          - name: TURNOVERS
+          - name: PF
+          - name: PTS
+          - name: PLUS_MINUS
+
+      - name: players
+        columns:
+          - name: PLAYER_NAME
+          - name: TEAM_ID
+          - name: PLAYER_ID
+          - name: SEASON
+
+
+      - name: ranking
+        columns:
+          - name: TEAM_ID
+          - name: LEAGUE_ID
+          - name: SEASON_ID
+          - name: STANDINGSDATE
+          - name: CONFERENCE
+          - name: TEAM
+          - name: G
+          - name: W
+          - name: L
+          - name: W_PCT
+          - name: HOME_RECORD
+          - name: ROAD_RECORD
+          - name: RETURNTOPLAY
+
+      - name: teams
+        columns:
+          - name: LEAGUE_ID
+          - name: TEAM_ID
+          - name: MIN_YEAR
+          - name: MAX_YEAR
+          - name: ABBREVIATION
+          - name: NICKNAME
+          - name: YEARFOUNDED
+          - name: CITY
+          - name: ARENA
+          - name: ARENACAPACITY
+          - name: OWNER
+          - name: GENERALMANAGER
+          - name: HEADCOACH
+          - name: DLEAGUEAFFILIATION
