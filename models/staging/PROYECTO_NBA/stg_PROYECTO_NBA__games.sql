@@ -9,27 +9,27 @@ source as (
 renamed as (
 
     select
-        game_date_est,
-        game_id,
-        game_status_text,
-        home_team_id,
-        visitor_team_id,
-        season,
-        team_id_home,
-        pts_home,
-        fg_pct_home,
-        ft_pct_home,
-        fg3_pct_home,
-        ast_home,
-        reb_home,
-        team_id_away,
-        pts_away,
-        fg_pct_away,
-        ft_pct_away,
-        fg3_pct_away,
-        ast_away,
-        reb_away,
-        home_team_wins
+        TO_DATE(game_date_est) AS game_date_est,
+        game_id::NUMERIC(25,0) AS game_id,
+        game_status_text::VARCHAR(25),
+        -- home_team_id,
+        -- visitor_team_id,
+        season::NUMERIC(25,0) AS season,
+        team_id_home::NUMERIC(25,0) AS team_id_home,
+        pts_home::NUMERIC(25,0) AS pts_home,
+        fg_pct_home::NUMERIC(25,3) AS fg_pct_home,
+        ft_pct_home::NUMERIC(25,3) AS ft_pct_home,
+        fg3_pct_home::NUMERIC(25,3) AS fg3_pct_home,
+        ast_home::NUMERIC(25,0) AS ast_home,
+        reb_home::NUMERIC(25,0) AS reb_home,
+        team_id_away::NUMERIC(25,0) AS team_id_away,
+        pts_away::NUMERIC(25,0) AS pts_away,
+        fg_pct_away::NUMERIC(25,3) AS fg_pct_away,
+        ft_pct_away::NUMERIC(25,3) AS ft_pct_away,
+        fg3_pct_away::NUMERIC(25,3) AS fg3_pct_away,
+        ast_away::NUMERIC(25,0) AS ast_away,
+        reb_away::NUMERIC(25,0) AS reb_away,
+        home_team_wins::BOOLEAN AS home_team_wins
 
     from source
 
