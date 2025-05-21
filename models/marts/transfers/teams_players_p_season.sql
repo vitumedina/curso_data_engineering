@@ -29,5 +29,5 @@ with team_players as (
 
 SELECT * from player_career
 -- where season = 2019 and abbreviation = 'LAL' 
-where player_name = 'Alex Caruso'
+-- where player_name = 'Alex Caruso'
 ORDER BY season_in_nba ASC
