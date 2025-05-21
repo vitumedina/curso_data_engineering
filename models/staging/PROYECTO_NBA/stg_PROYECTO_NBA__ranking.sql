@@ -11,7 +11,7 @@ renamed as (
     select
         team_id::NUMERIC(25,0) AS team_id,
         league_id::NUMERIC(25,0) AS league_id,
-        season_id::NUMERIC(25,0) AS season_id_to_delete,
+        RIGHT(season_id,4)::NUMERIC(25,0) AS season,
         TO_DATE(standingsdate) AS standingsdate,
         conference::VARCHAR(50) AS conference,
         team::VARCHAR(50) AS team,
@@ -32,3 +32,4 @@ renamed as (
 )
 
 select * from renamed
+-- WHERE SEASON != YEAR(standingsdate) AND SEASON + 1 != YEAR(standingsdate)

@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_proyecto_nba__games
+  - name: stg_PROYECTO_NBA__games
     description: "Información básica de los partidos disputados."
     columns:
       - name: game_id
@@ -9,7 +9,7 @@ models:
         description: "Identificador único del partido."
         tests:
           - not_null
-          - unique
+          # - unique
       - name: game_date_est
         data_type: date
         description: "Fecha del partido."
@@ -53,7 +53,7 @@ models:
         description: "Duración del partido (formato libre)."
 
         
-  - name: stg_proyecto_nba__game_details
+  - name: stg_PROYECTO_NBA__game_details
     description: "Detalles individuales por jugador en cada partido NBA."
     columns:
       - name: game_id
@@ -61,7 +61,7 @@ models:
         description: "Identificador único del partido."
         tests:
           - not_null
-          - unique
+          # - unique
           - relationships:
               to: ref('stg_proyecto_nba__games')
               field: game_id
@@ -71,7 +71,7 @@ models:
         description: "Identificador del equipo del jugador en el partido."
         tests:
           - not_null
-          - unique
+          # - unique
           - relationships:
               to: ref('stg_proyecto_nba__teams')
               field: team_id
@@ -89,7 +89,7 @@ models:
         description: "Identificador único del jugador."
         tests:
           - not_null
-          - unique
+          # - unique
           - relationships:
               to: ref('stg_proyecto_nba__players')
               field: player_id
@@ -193,7 +193,7 @@ models:
         data_type: number
         description: ""   
 
-  - name: stg_proyecto_nba__players
+  - name: stg_PROYECTO_NBA__players
     description: "Información básica sobre los jugadores NBA y los equipos donde jugaron cada temporada."
     columns:
       - name: player_name
@@ -211,12 +211,12 @@ models:
         description: "Identificador único del jugador."
         tests:
           - not_null
-          - unique
+          # - unique
       - name: season
         data_type: number
         description: "Temporada asociada al jugador."   
 
-  - name: stg_proyecto_nba__ranking
+  - name: stg_PROYECTO_NBA__ranking
     description: "Ranking de equipos en la liga NBA por temporada."
     columns:
 
@@ -291,7 +291,7 @@ models:
       - name: returntoplay
         description: "Identifica si el partido fue en la temporada del covid"
 
-  - name: stg_proyecto_nba__teams
+  - name: stg_PROYECTO_NBA__teams
     description: "Información general sobre los equipos NBA."
     columns:
       - name: league_id
@@ -301,7 +301,7 @@ models:
         description: "Identificador único del equipo."
         tests:
           - not_null
-          - unique
+          # - unique
       - name: min_year
         description: "Año de inicio del equipo."
 

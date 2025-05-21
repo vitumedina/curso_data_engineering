@@ -20,7 +20,12 @@ with dates_raw as (
             , case
                 when month(date_day)<10 then CONCAT(TO_VARCHAR(year(date_day)-1), '/', TO_VARCHAR(RIGHT(year(date_day),2)))
                 else CONCAT(TO_VARCHAR(year(date_day)), '/', TO_VARCHAR(RIGHT(year(date_day)+1,2))) 
+                end as season_desc
+            , case
+                when month(date_day)<10 then year(date_day)-1
+                else year(date_day)
                 end as season
+            , md5(CAST( season as TEXT)) as season_id
         from dates_raw
     )
 
@@ -91,14 +96,16 @@ with dates_raw as (
             , dia_desc
             , mes
             , mes_desc
-            , abrev_mes
-            , trimestre
-            , trimestre_desc
-            , semestre
-            , semestre_desc
+            -- , abrev_mes
+            -- , trimestre
+            -- , trimestre_desc
+            -- , semestre
+            -- , semestre_desc
             , dia_anho
             , anho
             , season
+            , season_desc
+            , season_id
         from days_named
     )
 

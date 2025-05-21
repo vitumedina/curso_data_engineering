@@ -11,6 +11,7 @@ stg_teams AS (
 renamed_casted AS (
     SELECT player_name
     , player_id
+    , season_id
     , season
     , t.team_id
     , abbreviation

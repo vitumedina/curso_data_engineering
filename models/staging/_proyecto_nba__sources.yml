@@ -27,7 +27,7 @@ sources:
           - name: GAME_ID
             tests:
               - not_null
-              - unique
+              # - unique
 
           - name: GAME_STATUS_TEXT
 

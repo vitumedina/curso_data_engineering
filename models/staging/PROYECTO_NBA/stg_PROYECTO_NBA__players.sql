@@ -12,6 +12,7 @@ renamed as (
         player_name::VARCHAR(50) AS player_name,
         team_id::NUMERIC(25,0) AS team_id,
         player_id::NUMERIC(25,0) AS player_id,
+        md5(CAST(season AS TEXT)) AS season_id,
         season::NUMERIC(25,0) AS season
 
     from source

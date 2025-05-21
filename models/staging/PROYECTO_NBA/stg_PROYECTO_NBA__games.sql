@@ -11,10 +11,12 @@ renamed as (
     select
         TO_DATE(game_date_est) AS game_date_est,
         game_id::NUMERIC(25,0) AS game_id,
+        ROW_NUMBER() OVER(PARTITION BY GAME_ID ORDER BY GAME_DATE_EST ASC) AS NUM_COINCIDENCIAS,
         game_status_text::VARCHAR(25) as game_status,
         -- home_team_id,
         -- visitor_team_id,
-        season::NUMERIC(25,0) AS season,
+        md5(CAST(season AS TEXT)) AS season_id,
+        season::NUMERIC(25,0) AS season_desc,
         team_id_home::NUMERIC(25,0) AS team_id_home,
         pts_home::NUMERIC(25,0) AS pts_home,
         fg_pct_home::NUMERIC(25,3) AS fg_pct_home,
@@ -32,7 +34,9 @@ renamed as (
         home_team_wins::BOOLEAN AS home_team_wins
 
     from source
-
+    QUALIFY NUM_COINCIDENCIAS = 1
 )
 
-select * from renamed
+select * exclude(NUM_COINCIDENCIAS) from renamed
+
+
