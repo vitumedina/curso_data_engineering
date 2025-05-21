@@ -1,0 +1,339 @@
+version: 2
+
+models:
+  - name: stg_proyecto_nba__games
+    description: "Información básica de los partidos disputados."
+    columns:
+      - name: game_id
+        data_type: number
+        description: "Identificador único del partido."
+        tests:
+          - not_null
+          - unique
+      - name: game_date_est
+        data_type: date
+        description: "Fecha del partido."
+      - name: season
+        data_type: number
+        description: "Temporada a la que pertenece el partido."
+      - name: team_id_home
+        data_type: number
+        description: "ID del equipo local."
+        tests:
+          - relationships:
+              to: ref('stg_proyecto_nba__teams')
+              field: team_id
+      - name: team_id_away
+        data_type: number
+        description: "ID del equipo visitante."
+        tests:
+          - relationships:
+              to: ref('stg_proyecto_nba__teams')
+              field: team_id
+      - name: pts_home
+        data_type: number
+        description: "Puntos anotados por el equipo local."
+      - name: pts_away
+        data_type: number
+        description: "Puntos anotados por el equipo visitante."
+      - name: attendance
+        data_type: number
+        description: "Asistencia de público."
+      - name: game_status_text
+        data_type: varchar
+        description: "Estado textual del partido."
+      - name: arena_name
+        data_type: varchar
+        description: "Nombre del estadio."
+      - name: city
+        data_type: varchar
+        description: "Ciudad donde se jugó el partido."
+      - name: game_duration
+        data_type: varchar
+        description: "Duración del partido (formato libre)."
+
+        
+  - name: stg_proyecto_nba__game_details
+    description: "Detalles individuales por jugador en cada partido NBA."
+    columns:
+      - name: game_id
+        data_type: number
+        description: "Identificador único del partido."
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('stg_proyecto_nba__games')
+              field: game_id
+
+      - name: team_id
+        data_type: number
+        description: "Identificador del equipo del jugador en el partido."
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('stg_proyecto_nba__teams')
+              field: team_id
+
+      - name: team_abbreviation
+        data_type: varchar
+        description: "Abreviatura del equipo."
+
+      - name: team_city
+        data_type: varchar
+        description: "Ciudad del equipo."
+
+      - name: player_id
+        data_type: number
+        description: "Identificador único del jugador."
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('stg_proyecto_nba__players')
+              field: player_id
+
+      - name: player_name
+        data_type: varchar
+        description: "Nombre completo del jugador."
+
+      - name: nickname
+        data_type: varchar
+        description: "Apodo del jugador."
+
+      - name: start_position
+        data_type: varchar
+        description: "Posición en el quinteto inicial."
+
+      - name: player_participated
+        data_type: boolean
+        description: "Indica si el jugador participó en el partido."
+
+      - name: minutes_varchar
+        description: "Minutos jugados como string (formato original)."
+
+      - name: rounded_mins_played
+        data_type: number
+        description: ""
+
+      - name: fieldgoal_made
+        data_type: number
+        description: ""
+
+      - name: fieldgoal_attempted
+        data_type: number
+        description: ""
+
+      - name: fieldgoal_pct
+        data_type: number
+        description: ""
+
+      - name: fieldgoal3_made
+        data_type: number
+        description: ""
+
+      - name: fieldgoal3_attempted
+        data_type: number
+        description: ""
+
+      - name: fieldgoal3_pct
+        data_type: number
+        description: ""
+
+      - name: freethrows_made
+        data_type: number
+        description: ""
+
+      - name: freethrows_attempted
+        data_type: number
+        description: ""
+
+      - name: freethrows_pct
+        data_type: number
+        description: ""
+
+      - name: oreb
+        data_type: number
+        description: ""
+
+      - name: dreb
+        data_type: number
+        description: ""
+
+      - name: rebounds
+        data_type: number
+        description: ""
+
+      - name: assists
+        data_type: number
+        description: ""
+
+      - name: steals
+        data_type: number
+        description: ""
+
+      - name: blocks
+        data_type: number
+        description: ""
+
+      - name: turnovers
+        data_type: number
+        description: ""
+
+      - name: personal_fouls
+        data_type: number
+        description: ""
+
+      - name: pts
+        data_type: number
+        description: ""
+
+      - name: plus_minus
+        data_type: number
+        description: ""   
+
+  - name: stg_proyecto_nba__players
+    description: "Información básica sobre los jugadores NBA y los equipos donde jugaron cada temporada."
+    columns:
+      - name: player_name
+        data_type: varchar
+        description: "Nombre completo del jugador."
+      - name: team_id
+        data_type: number
+        description: "Identificador del equipo al que pertenece."
+        tests:
+          - relationships:
+              to: ref('stg_proyecto_nba__teams')
+              field: team_id
+      - name: player_id
+        data_type: number
+        description: "Identificador único del jugador."
+        tests:
+          - not_null
+          - unique
+      - name: season
+        data_type: number
+        description: "Temporada asociada al jugador."   
+
+  - name: stg_proyecto_nba__ranking
+    description: "Ranking de equipos en la liga NBA por temporada."
+    columns:
+
+      - name: team_id
+        data_type: number      
+        description: "Identificador del equipo."
+        tests:
+          - relationships:
+              to: ref('stg_proyecto_nba__teams')
+              field: team_id
+
+      - name: league_id
+        data_type: number
+        description: "Identificador de la liga."
+
+      - name: season_id_to_delete
+        data_type: number
+        description: "Campo redundante a eliminar."
+
+      - name: standingsdate
+        data_type: date
+        description: "Fecha del ranking."
+
+      - name: conference
+        data_type: varchar
+        description: "Conferencia del equipo."
+
+      - name: team
+        data_type: varchar
+        description: "Nombre del equipo."
+
+      - name: games_played
+        data_type: number
+        description: "Número total de partidos jugados."
+
+      - name: win_count
+        data_type: number   
+        description: "Número de victorias."
+
+      - name: lose_count
+        data_type: number
+        description: "Número de derrotas."
+
+      - name: win_pct
+        data_type: number 
+        description: "Porcentaje de victorias."
+
+      - name: home_games
+        data_type: number
+        description: "Partidos jugados en casa."
+
+      - name: home_record
+        data_type: number
+        description: "Récord en casa (texto)."
+
+      - name: home_win_pct
+        data_type: number
+        description: "Porcentaje de victorias en casa."
+
+      - name: road_record
+        data_type: number
+        description: "Récord como visitante."
+
+      - name: away_games
+        data_type: number
+        description: "Partidos jugados como visitante."
+
+      - name: away_win_pct
+        data_type: number
+        description: "Porcentaje de victorias como visitante."
+
+      - name: returntoplay
+        description: "Identifica si el partido fue en la temporada del covid"
+
+  - name: stg_proyecto_nba__teams
+    description: "Información general sobre los equipos NBA."
+    columns:
+      - name: league_id
+        description: "Identificador de la liga."
+
+      - name: team_id
+        description: "Identificador único del equipo."
+        tests:
+          - not_null
+          - unique
+      - name: min_year
+        description: "Año de inicio del equipo."
+
+      - name: max_year
+        description: "Año más reciente de actividad del equipo."
+
+      - name: abbreviation
+        description: "Abreviatura del equipo."
+
+      - name: nickname
+        description: "Apodo del equipo."
+
+      - name: yearfounded
+        description: "Año de fundación."
+
+      - name: city
+        description: "Ciudad sede del equipo."
+
+      - name: arena
+        description: "Nombre del estadio."
+
+      - name: arenacapacity
+        description: "Capacidad del estadio."
+
+      - name: owner
+        description: "Propietario del equipo."
+
+      - name: generalmanager
+        description: "General manager del equipo."
+
+      - name: headcoach
+        description: "Entrenador principal."
+
+      - name: dleagueaffiliation
+        description: "Afiliación a equipo de desarrollo (D-League)."

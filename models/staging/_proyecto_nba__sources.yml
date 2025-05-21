@@ -21,12 +21,41 @@ sources:
       - name: games
         columns:
           - name: GAME_DATE_EST
+            tests:
+              - not_null
+
           - name: GAME_ID
+            tests:
+              - not_null
+              - unique
+
           - name: GAME_STATUS_TEXT
+
           - name: HOME_TEAM_ID
+            tests:
+              - not_null
+              - relationships:
+                  to: ref('stg_PROYECTO_NBA__teams')
+                  field: team_id
+
           - name: VISITOR_TEAM_ID
+            tests:
+              - not_null
+              - relationships:
+                  to: ref('stg_PROYECTO_NBA__teams')
+                  field: team_id
+
           - name: SEASON
+            tests:
+              - not_null
+          
           - name: TEAM_ID_HOME
+            tests:
+              - not_null
+              - relationships:
+                  to: ref('stg_PROYECTO_NBA__teams')
+                  field: team_id 
+
           - name: PTS_HOME
           - name: FG_PCT_HOME
           - name: FT_PCT_HOME
@@ -46,10 +75,28 @@ sources:
       - name: game_details
         columns:
           - name: GAME_ID
+            tests:
+              - not_null
+              - relationships:
+                  to: ref('stg_PROYECTO_NBA__games')
+                  field: game_id 
+
           - name: TEAM_ID
+            tests:
+              - not_null
+              - relationships:
+                  to: ref('stg_PROYECTO_NBA__teams')
+                  field: team_id 
+
           - name: TEAM_ABBREVIATION
           - name: TEAM_CITY
           - name: PLAYER_ID
+            tests:
+              - not_null
+              # - relationships:
+              #     to: ref('stg_PROYECTO_NBA__players')
+              #     field: player_id 
+
           - name: PLAYER_NAME
           - name: NICKNAME
           - name: START_POSITION
@@ -86,6 +133,11 @@ sources:
       - name: ranking
         columns:
           - name: TEAM_ID
+            tests:
+              - not_null
+              - relationships:
+                  to: ref('stg_PROYECTO_NBA__teams')
+                  field: team_id 
           - name: LEAGUE_ID
           - name: SEASON_ID
           - name: STANDINGSDATE

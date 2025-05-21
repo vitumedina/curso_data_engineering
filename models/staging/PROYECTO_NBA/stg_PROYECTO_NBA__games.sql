@@ -11,7 +11,7 @@ renamed as (
     select
         TO_DATE(game_date_est) AS game_date_est,
         game_id::NUMERIC(25,0) AS game_id,
-        game_status_text::VARCHAR(25),
+        game_status_text::VARCHAR(25) as game_status,
         -- home_team_id,
         -- visitor_team_id,
         season::NUMERIC(25,0) AS season,
